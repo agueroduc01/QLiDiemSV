@@ -9,21 +9,33 @@ int main(){
 	doc_file_mh(t);
 	doc_file_dsltc(dsltc);
 	doc_file_sv(dssv);
-	MONHOC* mang[100];
-	unsigned short sl = 0, check = 1, chon = 0;
-	do_dsmh_ra_mang(t, mang, sl);
-	xuat_mang_dsltc(dsltc, mang, sl, check, chon);
-	cout << "\n\n\t\t\tDANH SACH SV DANG KI";
-	for (int i = 0; i < dsltc.soluong; i++){
-		cout << "\nMA LTC: " << dsltc.ds_ltc[i]->maloptc << endl;
-		xuat_dssvdk(dsltc.ds_ltc[i]->head);
-		cout << endl << endl << endl;
-	}
-
+//	MONHOC* mang[100];
+//	unsigned short sl = 0, check = 1, chon = 0;
+//	do_dsmh_ra_mang(t, mang, sl);
+//	xuat_mang_dsltc(dsltc, mang, sl, check, chon);
 	
-//	nhap_diem(dsltc, dssv);
-//	them_ltc(dsltc);
+//	cout << "\n\n\t\t\tDANH SACH SV DANG KI";
+//	for (int i = 0; i < dsltc.soluong; i++){
+//		cout << "\nMA LTC: " << dsltc.ds_ltc[i]->maloptc << endl;
+//		xuat_dssvdk(dsltc.ds_ltc[i]->head);
+//		cout << endl << endl << endl;
+//	}
+
+//	cout << "\n\n\t\tDANH SACH LTC";
 //	xuatds_ltc(dsltc);
+//	cout << endl << endl;
+//	cap_nhat_dsltc(dsltc);
+//	cout << "\n\n\t\tDANH SACH LTC sau khi chinh sua";
+//	xuatds_ltc(dsltc);
+	
+
+//	xuly_dsltc(dsltc, t);
+
+	dangki_ltc(dsltc, t, dssv);
+
+
+
+
 //	cout << "\n\n\t\t Sau Khi Xoa";
 //	xoa_ltc(dsltc, ltc, 0);
 //	xuatds_ltc(dsltc);
@@ -94,7 +106,7 @@ int main(){
 	
 	
 	
-//	gotoxy(50,38);
+	gotoxy(50,38);
 	return 0;
 }
 
