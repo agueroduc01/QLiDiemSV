@@ -95,7 +95,7 @@ void ghi_file_dsltc(DSLTC dsltc){
 		outfile << dsltc.ds_ltc[i]->hocki << endl;
 		outfile << dsltc.ds_ltc[i]->nhom << endl;
 		outfile << dsltc.ds_ltc[i]->sosvmax << endl;
-		outfile << dem_svdk(dsltc.ds_ltc[i]);
+		outfile << dem_svdk(dsltc.ds_ltc[i]) << endl;
 		for (PTRDK k = dsltc.ds_ltc[i]->head; k != NULL; k = k->pnext){
 			outfile << k->data.diem << endl;
 			outfile << k->data.masv << endl;

@@ -17,7 +17,7 @@ unsigned short empty_ltc(DSLTC dsltc);
 void xuat_ltc(LTC *ltc);
 void xuatds_ltc(DSLTC dsltc);
 void them_ltc(DSLTC &dsltc);
-void xoa_ltc(DSLTC &dsltc, LTC *ltc, int vitricanxoa);
+void xoa_ltc(DSLTC &dsltc, int vitricanxoa);
 int search_maltc(DSLTC &dsltc, int malopTc);
 void mo_loptc(DSLTC &dsltc, LTC *ltc);
 unsigned short dem_sv(PTRSV head);
@@ -30,215 +30,6 @@ NODEDANGKI *tao_node_svdk(DANGKI svdk);
 int kiem_tra_trung_mh(PTRMH dsmh, char mmh[]);
 PTRMH kiem_tra_trung_ma_hoc(PTRMH dsmh, char mmh[]);
 
-void nhap_sovachu(char *chuoi, short sokytu){
-	char kytu;
-    short i = 0;
-    while (1){
-    	kytu = getch();
-    	if (kytu == -32)	kytu = getch();
-KIEMTRASOVACHU:
-        kytu = toupper(kytu);
-        if (kytu == ENTER)
-		{
-			if (i == 0) ghi_chu("Khong duoc de rong", 4, 30, 3, 1000);
-			else break;
-		}
-        else if (kytu == BACKSPACE){
-        	if (i == 0){
-        		while (1){
-        			kytu = getch();
-    				if (kytu == -32)	kytu = getch();
-        			if (kytu != BACKSPACE || kytu == ENTER)
-        				goto KIEMTRASOVACHU;
-				}
-			}
-			else {
-				cout << "\b ";
-				i--;
-			}
-		}
-        else if (i == sokytu - 1) continue; // Khong cho nhap qua so luong ky tu
-        else if ((kytu >= 'A' && kytu <= 'Z') || (kytu >= '0' && kytu <= '9')){
-            chuoi[i] = kytu;
-            i++;
-        }
-        else continue;
-        cout << kytu;
-    }
-    chuoi[i] = '\0';
-    return;
-}
-
-void nhap_so(char *chuoi, short sokytu){
-	char kytu;
-    short i = 0;
-    while (1){
-    	kytu = getch();
-KIEMTRASO:
-        if (kytu == ENTER)
-		{
-			if (i == 0) ghi_chu("Khong duoc de rong", 4, 30, 3, 1000);
-			else break;
-		}
-        else if (kytu == BACKSPACE){
-        	if (i == 0){
-        		while (1){
-        			kytu = getch();
-        			if (kytu != BACKSPACE || kytu == ENTER)
-        				goto KIEMTRASO;
-				}
-			}
-			else {
-				cout << "\b ";
-				i--;
-			}
-		}
-        else if (i == sokytu - 1) continue; // Khong cho nhap qua so luong ky tu
-        else if (kytu >= '0' && kytu <= '9'){
-            chuoi[i] = kytu;
-            i++;
-        }
-        else continue;
-        cout << kytu;
-    }
-    chuoi[i] = '\0';
-    return;
-}
-
-void nhap_so(unsigned short &so, short sokytu){
-	char kytu;
-    short i = 0;
-    so = 0;
-    do {
-    	kytu = getch();
-KIEMTRASO2:
-        if (kytu == ENTER){
-			if (i == 0) ghi_chu("Khong duoc de rong", 4, 30, 3, 1000);
-			else break;
-		}
-        else if (kytu == BACKSPACE){
-        	if (i == 0){
-        		while (1){
-        			kytu = getch();
-        			if (kytu != BACKSPACE || kytu == ENTER)
-        				goto KIEMTRASO2;
-				}
-			}
-			else {
-				cout << "\b ";
-				so /= 10;
-				i--;
-			}
-		}
-        else if (i == sokytu - 1) continue; // Khong cho nhap qua so luong ky tu
-        else if (kytu >= '0' && kytu <= '9'){
-            so = (kytu - 48) + so * 10; //?
-            i++;
-        }
-        else continue;
-        cout << kytu;
-    } while(1);
-    return;
-}
-
-void nhap_hoc_ki(unsigned short &so){
-	so = 0;
-	char tam;
-    while (1){
-    	tam = getch();
-        if (tam == ENTER){
-        	if (so == 0) ghi_chu("Khong duoc de rong", 4, 30, 3, 1000);
-			else break;
-		}
-        else if (tam == BACKSPACE && so > 0){
-        	so /= 10;
-        	cout << "\b ";
-		}
-        else if ((tam == '1' || tam == '2') && so == 0) so = tam - 48;
-        else continue;
-        cout << tam;
-    }
-}
-
-void nhap_chu(char *chuoi, short sokytu){
-	char kytu;
-    short i = 0;
-    while (1){
-    	kytu = getch();
-    	if (kytu == -32)	kytu = getch();
-KIEMTRACHU:
-        kytu = toupper(kytu);
-        if (kytu == ENTER)
-		{
-			if (i == 0) ghi_chu("Khong duoc de rong", 4, 30, 3, 1000);
-			else break;
-		}
-        else if (kytu == BACKSPACE){
-        	if (i == 0){
-        		while (1){
-        			kytu = getch();
-    				if (kytu == -32)	kytu = getch();
-        			if (kytu != BACKSPACE || kytu == ENTER)
-        				goto KIEMTRACHU;
-				}
-			}
-			else {
-				cout << "\b ";
-				i--;
-			}
-		}
-        else if (i == sokytu - 1) continue; // Khong cho nhap qua so luong ky tu
-        else if (kytu >= 'A' && kytu <= 'Z'){
-            chuoi[i] = kytu;
-            i++;
-        }
-        else continue;
-        cout << kytu;
-    }
-    chuoi[i] = '\0';
-    return;
-}
-
-void nhap_chu_hoten(char *chuoi, short sokytu){
-	char kytu;
-    short i = 0;
-    while (1){
-    	kytu = getch();
-    	if (kytu == -32)	kytu = getch();
-KIEMTRACHU:
-        kytu = toupper(kytu);
-        if (kytu == ENTER)
-		{
-			if (i == 0) ghi_chu("Khong duoc de rong", 4, 30, 3, 1000);
-			else break;
-		}
-        else if (kytu == BACKSPACE){
-        	if (i == 0){
-        		while (1){
-        			kytu = getch();
-    				if (kytu == -32)	kytu = getch();
-        			if (kytu != BACKSPACE || kytu == ENTER)
-        				goto KIEMTRACHU;
-				}
-			}
-			else {
-				cout << "\b ";
-				i--;
-			}
-		}
-        else if (i == sokytu - 1) continue;
-        else if (kytu == ' ' && chuoi[i - 1] == ' ') continue;
-        else if ((kytu >= 'A' && kytu <= 'Z') || kytu == ' '){
-        		chuoi[i] = kytu;
-        		i++;
-			}
-        else continue;
-        cout << kytu;
-    }
-    chuoi[i] = '\0';
-    return;
-}
-
 //================= DSSV ================
 //========= tao nodesv =========
 NODESV *tao_nodesv(SINHVIEN sv){
@@ -250,17 +41,17 @@ NODESV *tao_nodesv(SINHVIEN sv){
 //================= nhap thong tin sv ===========
 void nhap_thong_tin_sv(SINHVIEN &sv){
 	cout << "\nNhap ma sinh vien(toi da 15 ky tu): ";
-	nhap_sovachu(sv.masv, 16);
+//	nhap_sovachu(sv.masv, 16);
 	cout << "\nNhap ho sv(toi da 30 ky tu): ";
-	nhap_chu_hoten(sv.ho, 30);
+//	nhap_chu_hoten(sv.ho, 30);
 	cout << "\nNhap ten sv(toi da 10 ky tu): ";
-	nhap_chu(sv.ten, 11);
+//	nhap_chu(sv.ten, 11);
 	cout << "\nNhap gioi tinh sv(toi da 3 ky tu): ";
-	nhap_chu(sv.phai, 4);
+//	nhap_chu(sv.phai, 4);
 	cout << "\nNhap sdt sv(toi da 11 ky tu): ";
-	nhap_so(sv.sdt, 12);
+//	nhap_so(sv.sdt, 12);
 	cout << "\nNhap ma lop(toi da 15 ky tu): ";
-	nhap_sovachu(sv.malop, 16);
+//	nhap_sovachu(sv.malop, 16);
 	cout << endl;
 }
 void nhap_va_them_1sv_vao_dssv(PTRSV &dssv){
@@ -374,6 +165,14 @@ bool check_trung_ltc(DSLTC dsltc, char *ma_mh, unsigned short nk, unsigned short
 	return 0;
 }
 
+bool check_trung_ltc(DSLTC dsltc, LTC *ltc){
+	short i;
+	for (i = 0; i < dsltc.soluong; i++)
+		if (check_trung_2chuoi(dsltc.ds_ltc[i]->mamh, ltc->mamh) && dsltc.ds_ltc[i]->nienkhoa == ltc->nienkhoa && dsltc.ds_ltc[i]->hocki == ltc->hocki && dsltc.ds_ltc[i]->nhom == ltc->nhom)
+		return 1;
+	return 0;
+}
+
 bool check_trung_maltc(DSLTC dsltc, short maloptinchi){
 	for (short i = 0; i <dsltc.soluong; i++){
 		if (maloptinchi == dsltc.ds_ltc[i]->maloptc)
@@ -381,48 +180,8 @@ bool check_trung_maltc(DSLTC dsltc, short maloptinchi){
 	}
 	return 0; // khong trung
 }
-
-// nhap thong tin lop tin chi
-int nhap_thong_tin_ltc(DSLTC &dsltc){
-	if (full_ltc(dsltc) == 1){
-		cout << "\nDanh sach day";
-		return -1;
-	}
-	dsltc.ds_ltc[dsltc.soluong] = new LTC;
-	if (empty_ltc(dsltc) == 0){
-		dsltc.ds_ltc[dsltc.soluong]->maloptc = dsltc.ds_ltc[dsltc.soluong - 1]->maloptc + 1; // Ma lop tin chi
-	}
-	cout << "\nMa mon hoc: ";
-	nhap_sovachu(dsltc.ds_ltc[dsltc.soluong]->mamh, 11);
-	cout << "\nNien khoa: ";
-	nhap_so(dsltc.ds_ltc[dsltc.soluong]->nienkhoa, 5);
-	cout << "\nHoc ki: ";
-	nhap_hoc_ki(dsltc.ds_ltc[dsltc.soluong]->hocki);
-	cout << "\nNhom: ";
-	nhap_so(dsltc.ds_ltc[dsltc.soluong]->nhom, 2); // Tim xem co bi trung nhom khong
-	while (check_trung_ltc(dsltc, dsltc.ds_ltc[dsltc.soluong]->mamh, dsltc.ds_ltc[dsltc.soluong]->nienkhoa, dsltc.ds_ltc[dsltc.soluong]->hocki, dsltc.ds_ltc[dsltc.soluong]->nhom)){
-		cout << "\nLop nay da co trong danh sach!";
-		nhap_so(dsltc.ds_ltc[dsltc.soluong]->nhom, 2);
-	}
-	cout << "\nNhap SV min: ";
-	nhap_so(dsltc.ds_ltc[dsltc.soluong]->sosvmin, 3);
-	do {
-		cout << "\nNhap SV max: ";
-		nhap_so(dsltc.ds_ltc[dsltc.soluong]->sosvmax, 4);
-		if (dsltc.ds_ltc[dsltc.soluong]->sosvmin > dsltc.ds_ltc[dsltc.soluong]->sosvmax)
-			cout << "\nSinh vien max khong nho hon sinh vien min. Vui long nhap lai\n";
-	} while (dsltc.ds_ltc[dsltc.soluong]->sosvmin > dsltc.ds_ltc[dsltc.soluong]->sosvmax);
-	return 0;
-}
-// them lop tin chi
-void them_ltc(DSLTC &dsltc){ // se tu them vao cuoi ds
-	nhap_thong_tin_ltc(dsltc);// 0 - them thanh cong, -1 - them that bai
-	dsltc.soluong++;
-	return;
-}
-//================================Ham nay sai chua sua================== sua lai thanh xoa theo LTC
-// xoa lop tin chi o vi tri can xoa
-void xoa_ltc(DSLTC &dsltc, LTC *ltc, int vitricanxoa){
+// xoa lop tin chi theo ma ltc
+void xoa_ltc(DSLTC &dsltc, int vitricanxoa){
 	if (empty_ltc(dsltc) == 1 || vitricanxoa < 0 || vitricanxoa > dsltc.soluong - 1){
 		return;
 	}
@@ -475,22 +234,7 @@ void xuatds_ltc(DSLTC dsltc, int chon){
 		xuat_ltc(dsltc.ds_ltc[chon]);
 	}
 }
-//void CapNhatLopTinChi(DanhSachLopTinChi DSLop_TC){
-//	cout << "\nNhap ma lop tin chi can cap nhat: ";
-//	int maLopTC, i;
-//	char temp[10];
-//	cin >> maLopTC;
-//	
-//	for (i = 0; i < dsltc.soluong; i++){
-//		if (maLopTC == DSLop_TC->DSLop_TinChi->MaLopTinChi){
-//			cout << "\nMa mon hoc: ";
-//			cout << "\nNien khoa: ";
-//		}
-//		else{
-//			cout << "\nKhong co ma lop tin chi can cap nhat.";
-//		}
-//	}
-//}
+
 // tim vi tri ma lop tin chi trong DSLTC
 int search_maltc(DSLTC &dsltc, int malopTc){
 	int i;
@@ -503,13 +247,48 @@ int search_maltc(DSLTC &dsltc, int malopTc){
 	return -1; //khong tim thay trung
 }
 
+int search_dsltc_mamh_nienkhoa(DSLTC &dsltc, char ma_mon_hoc[], short nk){
+	int i;
+	for (i = 0; i < dsltc.soluong; i++){
+		if (strcmp(dsltc.ds_ltc[i]->mamh, ma_mon_hoc) == 0) {
+			if (dsltc.ds_ltc[i]->nienkhoa == nk)
+				return 1; // dung thi tra ve 1
+		}
+	}
+	return 0;
+}
+
+int search_maloptc_mamh(DSLTC dsltc, int maloptc, char mamh[], int dem)
+{
+	for (int i = 0; i < dem; i++){
+		//so sanh bang ma lop tin chi
+		if (dsltc.ds_ltc[i]->maloptc == maloptc)
+		{
+			if (strcmp(dsltc.ds_ltc[i]->mamh, mamh) == 0) {
+				return i; //neu phan trung thi tra ve vi tri i
+			}
+		}
+	}
+	return -1; //khong tim thay trung
+}
+
+//tim vi tri ma mon hoc trong DSLTC
+int search_ma_mon_hoc(DSLTC &dsltc, char ma_mon_hoc[]){
+	int i;
+	for (i = 0; i < dsltc.soluong; i++){
+		//so sanh bang ma mon hoc
+		if (strcmp(dsltc.ds_ltc[i]->mamh, ma_mon_hoc) == 0){
+			return i; //neu phan trung thi tra ve vi tri i
+		}
+	}
+	return -1; //khong tim thay trung
+}
+
 void mo_loptc(DSLTC &dsltc, LTC *ltc){
 	cout << "\nNhap vao ma ltc muon mo: ";
 	int maltcmuonmo;
 	cin >> maltcmuonmo;
 	if (search_maltc(dsltc, maltcmuonmo) == -1){
-		// memset(str, 0, 10); //set gia tri 0 cho chuoi
-		// toupper(c); //in hoa chuoi c
 	} else cout << "\nDa ton tai ma ltc nay.";
 }
 
@@ -521,62 +300,17 @@ unsigned short dem_svdk(LTC *ltc){
 	}
 	return demsv;
 }
-
-void dang_ki_ltc(DSLTC &dsltc, PTRSV dssv, PTRMH t, unsigned short &nk, unsigned short &hk){
-	NODESV *p = NULL;
-	char masv[16];
-NHAPMASV:
-	cout << "\nNhap ma sv: ";
-	nhap_sovachu(masv, 15);
-	if (dssv == NULL){
-		cout << "\nDSSV rong!";
-		return;
-	}
-	p = search_masv(dssv, masv);
-	if (p != NULL){ // tim thay masv trong ds
-		xuat_thong_tin_sv(p->data);
-	} else {
-			cout << "\nMa sv khong co trong dssv";
-			system("pause");
-			goto NHAPMASV;
-	}
-	cout << "\nNhap vao nien khoa: ";
-	nhap_so(nk, 5);
-	cout << "\nNhap vao hoc ki: ";
-	nhap_hoc_ki(hk);
-	short i, soluongsvdk;
-	PTRMH temp;
-	for (i = 0; i < dsltc.soluong; i++){
-		if (dsltc.ds_ltc[i]->nienkhoa == nk && dsltc.ds_ltc[i]->hocki == hk){
-			temp = kiem_tra_trung_ma_hoc(t, dsltc.ds_ltc[i]->mamh);
-			if (temp != NULL){
-				soluongsvdk = dem_svdk(dsltc.ds_ltc[i]);
-				cout << "\nMa lop tin chi: " << dsltc.ds_ltc[i]->maloptc;
-				cout << "\nMa Mon Hoc Trong LTC " << i << ": " << temp->data.mamh;
-				cout << "\nTen Mon Hoc Trong LTC " << i << ": " << temp->data.tenmh;
-				cout << "\nNhom Trong LTC " << i << ": " << dsltc.ds_ltc[i]->nhom;
-				cout << "\nSo SV da dang ki Trong LTC " << i << ": " << soluongsvdk;
-				cout << "\nSo slot con trong Trong LTC " << i << ": " << dsltc.ds_ltc[i]->sosvmax - soluongsvdk;
-				cout << endl;
-			}
+// dem bang` ma mon hoc
+int dem_so_lop_da_dang_ki(DSLTC dsltc, char mamh[]) {
+	int dem = 0;
+	for (int i = 0; i < dsltc.soluong; i++){
+		if (strcmp(dsltc.ds_ltc[i]->mamh, mamh) == 0) {
+			dem++;
 		}
 	}
-	unsigned short maltc;
-	DANGKI svdk;
-	while (1){
-		cout << "\nNhap ma lop tin chi muon dang ki: ";
-		nhap_so(maltc, 12);
-		int vitri = search_maltc(dsltc, maltc);
-		if (vitri != -1){
-			svdk.diem = 0;
-			strcpy(svdk.masv, masv);
-			them_cuoi_nodedk(dsltc.ds_ltc[vitri]->head, tao_node_svdk(svdk));
-			cout << "\nThem thanh cong!";
-			break;
-		}
-		else cout << "\nKhong tim thay ma lop tin chi!";
-	}
+	return dem;
 }
+
 void huy_ltc(LTC *ltc){
 	if(dem_svdk(ltc) < ltc->sosvmin) ltc->huy = false; // dong y huy lop
 	else ltc->huy = true;
@@ -597,33 +331,7 @@ void auto_huy_ltc(DSLTC &dsltc, short nk, short hk){
 	else if (check == 0) cout << "\nHuy that bai !!";
 }
 
-void nhap_diem(DSLTC dsltc, PTRSV dssv){
-	unsigned short nk, hk, nhom, i, stt = 0;
-	char temp_mh[11];
-	cout << "\nNhap vao nien khoa: ";
-	nhap_so(nk, 5);
-	cout << "\nHoc ki: ";
-	nhap_hoc_ki(hk);
-	cout << "\nNhom: ";
-	nhap_so(nhom, 2);
-	cout << "\nMa mon hoc: ";
-	nhap_sovachu(temp_mh, 11);
-	for (i = 0; i < dsltc.soluong; i++){
-		if (check_trung_2chuoi(dsltc.ds_ltc[i]->mamh,temp_mh) && dsltc.ds_ltc[i]->nienkhoa == nk && dsltc.ds_ltc[i]->hocki == hk && dsltc.ds_ltc[i]->nhom == nhom){
-			cout << "\nSTT: " << ++stt;
-			cout << "\nMa sv: ";
-			dsltc.ds_ltc[i]->head->data.masv;
-			cout << "\nHO: ";
-			dssv->data.ho;
-			cout << "\nTEN: ";
-			dssv->data.ten;
-			cout << "\nDiem: ";
-			cin >> dsltc.ds_ltc[i]->head->data.diem;
-		}
-	}
-}
-
-//========================= DSSV_DK ============================
+//================================================== DSSV_DK ====================================================
 NODEDANGKI* tao_node_svdk(DANGKI svdk){
 	NODEDANGKI *p = new NODEDANGKI;
 	if (p == NULL){
@@ -663,15 +371,10 @@ void xuat_dssvdk(PTRDK head){
 	}
 }
 //===========tim kiem sv dk===========
-NODEDANGKI* search_sv_ltc(DSLTC &dsltc, char *c){
-	NODEDANGKI *p = NULL;	
-	for(int i = 0 ;i < dsltc.soluong; i++){
-		if(dsltc.ds_ltc[i]->head == NULL)// LOP KHONG CO SV DKI. (bo qua)
-			continue;
-		for(p = dsltc.ds_ltc[i]->head; p != NULL; p = p->pnext){
-			if(strcmp((p->data.masv), c) == 0){
-				return p;
-			}
+NODEDANGKI* search_svdk_ltc(PTRDK dsdk, char masv[]){
+	for (PTRDK p = dsdk; p != NULL; p = p->pnext){
+		if (strcmp(p->data.masv, masv) == 0) {
+			return p;
 		}
 	}
 	return NULL;

@@ -71,25 +71,14 @@ void ToMau(int x, int y, char *a, int color) // x, y là taa do con tro can nhay 
 }
 
 //Ghi chu
-//void ghi_chu(char *c, int x, int y, int color, int sleep){
-//	gotoxy(x, y);
-//	textcolor(color);
-//	cout << c;
-//	Sleep(sleep);
-//	gotoxy(x, y);
-//	textcolor(14);
-//	for(int i = 0; i < strlen(c); i++){
-//		cout << " ";
-//	}
-//}
-void ghi_chu(string c, int x, int y, int color, int sleep){
+void ghi_chu(char *c, int x, int y, int color, int sleep){
 	gotoxy(x, y);
 	textcolor(color);
 	cout << c;
 	Sleep(sleep);
 	gotoxy(x, y);
 	textcolor(14);
-	for(int i = 0; i < c.length(); i++){
+	for(int i = 0; i < strlen(c); i++){
 		cout << " ";
 	}
 }
@@ -177,7 +166,7 @@ int get_key(){
 	char key; key = getch();
 	if(key == -32 || key == '\0')
 		return -getch();
-	else return key;	
+	else return key;
 }
 
 //Hàm ve rectangle
